@@ -61,14 +61,19 @@ import './index.css';
     }
     /* function to send to Square functional components */
     handleClick(i){
+      /**cuts the history to remove the bad future histories */
       const history = this.state.history.slice(0, this.state.stepNumber + 1);
+      /**get the most recent move */
       const current = history[history.length -1];
+      /**mutable form of the current state's square array */
       const squares = current.squares.slice();
       if(calculateWinner(squares) || squares[i])
       {
         return;
       }
+      /**set the square value depending on turn order */
       squares[i] = this.state.xIsNext ? 'X' : 'O';
+      /**now update the state, causing a re-render */
       this.setState({
           history: history.concat([{
             squares:squares,
